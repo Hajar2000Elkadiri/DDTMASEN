@@ -144,7 +144,7 @@ secter_colors ={
        'Environmental Responsibility': '#709cc4',
 }
 def Bilan_DDTM():
-    st.markdown(
+     st.markdown(
          f"""
          <style>
          .stApp {{
@@ -156,13 +156,13 @@ def Bilan_DDTM():
          """,
          unsafe_allow_html=True
      )
-    title = f"""<h2 style='text-align: center; background-color:#b7d3e8; padding: 10px; border-radius: 10px; font-size: 30px; font-family: Arial, sans-serif; font-weight: bold;'>
+     title = f"""<h2 style='text-align: center; background-color:#b7d3e8; padding: 10px; border-radius: 10px; font-size: 30px; font-family: Arial, sans-serif; font-weight: bold;'>
 Bilan global des projets de développement durable des territoires <br><span style='color: orange;'>2010-{year}</span>
 </h2>"""
-    st.markdown(translate_html(title,choice), unsafe_allow_html=True)
-    github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Projets_DDT.xlsx'
-    print("Attempting to read Excel file from:", github_url1)
-    try :
+     st.markdown(translate_html(title,choice), unsafe_allow_html=True)
+     github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Projets_DDT.xlsx'
+     print("Attempting to read Excel file from:", github_url1)
+    
      df = pd.read_excel(github_url1, sheet_name='wiki')
      print("Excel file successfully read.")
 
@@ -619,8 +619,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
      fig_beneficiaires.update_xaxes(tickvals=total_beneficiaires['Année'].unique())
      st.plotly_chart(fig_beneficiaires, use_container_width=True)
      st.markdown(translate_html(paragraphe1,choice),unsafe_allow_html=True)
-    except Exception as e:
-     print("Error reading Excel file:", e)
+
 def sideBar():
     with st.sidebar:
         selected=option_menu(
