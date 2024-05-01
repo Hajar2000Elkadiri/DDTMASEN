@@ -81,7 +81,12 @@ def translate_html(html_code, choice):
     return translated_html_code
 
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
-st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png", use_column_width=True) 
+try :   
+  st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png", use_column_width=True) 
+  print("Excel file successfully read.")
+except Exception as e:
+  print("Error reading Excel file:", e)
+    
 choice = st.sidebar.radio('Select language', langlist)
 
 github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Projets_DDT.xlsx'
@@ -179,8 +184,6 @@ Bilan global des projets de développement durable des territoires <br><span sty
      st.markdown("") 
     # Displaying the markdown
      st.markdown(translate_html(f"<p style='font-size: 18px; font-family: Calibri; color: black; font-weight: normal; text-align: justify;'>L'objectif stratégique de Masen est de désenclaver les territoires, d'améliorer le cadre social des populations et de favoriser le développement et l'animation des territoires. L'objectif de Masen est de promouvoir l'accès aux ressources et aux services indispensables, de renforcer les liens communautaires et de dynamiser les économies locales en mettant l'accent sur ces priorités.</p>", choice), unsafe_allow_html=True)
-     st.markdown("")
-     st.markdown("") 
     # Calculating and displaying the pie chart
      axes_projet_counts = df.groupby('Axe stratégique').size().reset_index(name='Nombre de projets/actions')
      axes_projet_counts['Axe stratégique'] = axes_projet_counts['Axe stratégique'].apply(lambda x: translate_html(x, choice))
