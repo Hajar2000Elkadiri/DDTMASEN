@@ -51,7 +51,10 @@ def add_bg_from_url():
      )
 add_bg_from_url()
 #translate
-df = pd.read_excel(os.path.join(r'https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/data1/language.xlsx', 'language.xlsx'),sheet_name='wiki')
+github_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/data1/language.xlsx'
+
+# Read the Excel file directly from the URL
+df = pd.read_excel(github_url, sheet_name='wiki')
 df.dropna(inplace=True)
 lang = df['name'].to_list()
 langlist=tuple(lang)
