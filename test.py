@@ -51,7 +51,7 @@ def add_bg_from_url():
      )
 add_bg_from_url()
 #translate
-df = pd.read_excel(os.path.join(r'\data1\language.xlsx', 'language.xlsx'),sheet_name='wiki')
+df = pd.read_excel(os.path.join(r'\data1\', 'language.xlsx'),sheet_name='wiki')
 df.dropna(inplace=True)
 lang = df['name'].to_list()
 langlist=tuple(lang)
