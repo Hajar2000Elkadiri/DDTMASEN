@@ -182,6 +182,21 @@ Bilan global des projets de développement durable des territoires <br><span sty
     # Calculating and displaying the pie chart
      axes_projet_counts = df.groupby('Axe stratégique').size().reset_index(name='Nombre de projets/actions')
      axes_projet_counts['Axe stratégique'] = axes_projet_counts['Axe stratégique'].apply(lambda x: translate_html(x, choice))
+     fig_axes = px.pie(
+    axes_projet_counts,
+    values='Nombre de projets/actions',
+    names='Axe stratégique',
+    title=translate_html("<b style='color: #004378'>Volume de réalisation par axes stratégiques</b>", choice),
+    color='Axe stratégique',
+    color_discrete_map=Axes_colors,
+    template="plotly_white",
+)
+     fig_axes.update_layout(
+    title_x=0.3,
+    paper_bgcolor='rgba(0,0,0,0)', 
+    plot_bgcolor='rgba(0,0,0,0)',
+    legend_font=dict(color='#004378')
+)
      fig_axes.update_layout(
     title_x=0.3,
     paper_bgcolor='rgba(0,0,0,0)', 
