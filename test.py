@@ -87,7 +87,7 @@ choice = st.sidebar.radio('Select language', langlist)
 github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Projets_DDT.xlsx'
 print("Attempting to read Excel file from:", github_url1)
 try :     
-     df = pd.read_excel(github_url1, sheet_name='wiki')
+     df = pd.read_excel(github_url1)
      print("Excel file successfully read.")
 except Exception as e:
     print("Error reading Excel file:", e)
