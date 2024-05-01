@@ -151,6 +151,11 @@ secter_colors ={
        'Environmental Responsibility': '#709cc4',
 }
 def Bilan_DDTM():
+     try :     
+     df = pd.read_excel(github_url1, sheet_name='wiki')
+       print("Excel file successfully read.")
+     except Exception as e:
+       print("Error reading Excel file:", e)
      st.markdown(
          f"""
          <style>
