@@ -188,6 +188,21 @@ Bilan global des projets de développement durable des territoires <br><span sty
     plot_bgcolor='rgba(0,0,0,0)',
     legend_font=dict(color='#004378')
 )
+    fig_axes = px.pie(
+    axes_projet_counts,
+    values='Nombre de projets/actions',
+    names='Axe stratégique',
+    title=translate_html("<b style='color: #004378'>Volume de réalisation par axes stratégiques</b>", choice),
+    color='Axe stratégique',
+    color_discrete_map=Axes_colors,
+    template="plotly_white",
+)
+     fig_axes.update_layout(
+    title_x=0.3,
+    paper_bgcolor='rgba(0,0,0,0)', 
+    plot_bgcolor='rgba(0,0,0,0)',
+    legend_font=dict(color='#004378')
+)
      fig_axes.update_traces(text=[translate_html(axe, choice) for axe in axes_projet_counts['Axe stratégique']],textposition='inside', textinfo='percent')
      for data in fig_axes.data:
       data.name = translate_html(data.name, choice)
