@@ -61,9 +61,9 @@ try :
 except Exception as e:
     print("Error reading Excel file:", e)
 df1.dropna(inplace=True)
-lang = df['name'].to_list()
+lang = df1['name'].to_list()
 langlist=tuple(lang)
-langcode = df['iso'].to_list()
+langcode = df1['iso'].to_list()
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
 def translate_html(html_code, choice):
     if choice.lower() == "french":
