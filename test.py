@@ -628,7 +628,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
      fig_beneficiaires.update_xaxes(tickvals=total_beneficiaires['Année'].unique())
      st.plotly_chart(fig_beneficiaires, use_container_width=True)
      st.markdown(translate_html(paragraphe1,choice),unsafe_allow_html=True)
- except Exception as e:
+  except Exception as e:
        print("Error reading Excel file:", e)    
 def sideBar():
     with st.sidebar:
