@@ -81,7 +81,7 @@ def translate_html(html_code, choice):
     return translated_html_code
 
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
-st.sidebar.image(r"C:\Users\Dell\Desktop\test\Logo Masen VF.png",caption="", use_column_width=True) 
+st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png",caption="", use_column_width=True) 
 choice = st.sidebar.radio('Select language', langlist)
 excel_file = r'C:\Users\Dell\Desktop\test\Projets_DDT.xlsx'
 df = pd.read_excel(excel_file)
