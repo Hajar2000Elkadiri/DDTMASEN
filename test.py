@@ -55,7 +55,7 @@ github_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/data1/langu
 print("Attempting to read Excel file from:", github_url)
 
 try : 
-    df1 = pd.read_excel(github_url)
+    df1 = pd.read_excel(github_url, sheet_name='wiki')
     print("Excel file successfully read.")
     # Further processing with the DataFrame
 except Exception as e:
@@ -152,7 +152,7 @@ secter_colors ={
 }
 def Bilan_DDTM():
      try :     
-     df = pd.read_excel(github_url1, sheet_name='wiki')
+     df = pd.read_excel(github_url1)
        print("Excel file successfully read.")
      except Exception as e:
        print("Error reading Excel file:", e)
