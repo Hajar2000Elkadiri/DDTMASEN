@@ -9,3 +9,4 @@ streamlit==1.33.0
 streamlit_extras==0.4.2
 streamlit_folium==0.18.1
 streamlit_option_menu==0.3.12
+openpyxl==3.1.2
