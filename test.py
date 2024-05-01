@@ -83,8 +83,15 @@ def translate_html(html_code, choice):
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
 st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png",caption="", use_column_width=True) 
 choice = st.sidebar.radio('Select language', langlist)
-csv_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Projets_DDT.csv'
-df = pd.read_csv(csv_url)
+github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Projets_DDT.xlsx'
+print("Attempting to read Excel file from:", github_url1)
+
+try:
+    df = pd.read_excel(github_url, sheet_name='wiki')
+    print("Excel file successfully read.")
+    # Further processing with the DataFrame
+except Exception as e:
+    print("Error reading Excel file:", e)
 odd_colors = {
        'ODD 4 : Education de qualité': '#c5192d',
        'ODD 5 : Egalité entre les sexes': 'rgb(255, 58, 33)',
