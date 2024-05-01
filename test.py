@@ -55,7 +55,7 @@ github_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/data1/langu
 print("Attempting to read Excel file from:", github_url)
 
 try : 
-    df1 = pd.read_excel(github_url, sheet_name='wiki')
+    df1 = pd.read_excel(github_url)
     print("Excel file successfully read.")
     # Further processing with the DataFrame
 except Exception as e:
