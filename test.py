@@ -188,7 +188,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
     plot_bgcolor='rgba(0,0,0,0)',
     legend_font=dict(color='#004378')
 )
-    fig_axes = px.pie(
+     fig_axes = px.pie(
     axes_projet_counts,
     values='Nombre de projets/actions',
     names='Axe stratégique',
