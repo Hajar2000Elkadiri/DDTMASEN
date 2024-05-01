@@ -164,8 +164,8 @@ Bilan global des projets de développement durable des territoires <br><span sty
   print("Attempting to read Excel file from:", github_url1)
 
   try:
-        df = pd.read_excel(github_url1, sheet_name='wiki')
-        print("Excel file successfully read.")
+     df = pd.read_excel(github_url1, sheet_name='wiki')
+     print("Excel file successfully read.")
     # Further processing with the DataFrame
       
 #Axe stratégique   
