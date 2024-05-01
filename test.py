@@ -166,24 +166,15 @@ Bilan global des projets de développement durable des territoires <br><span sty
   try:
      df = pd.read_excel(github_url1, sheet_name='wiki')
      print("Excel file successfully read.")
+
     # Further processing with the DataFrame
-      
-#Axe stratégique   
+
+    # Displaying the markdown
      st.markdown(translate_html(f"<p style='font-size: 18px; font-family: Calibri; color: black; font-weight: normal; text-align: justify;'>L'objectif stratégique de Masen est de désenclaver les territoires, d'améliorer le cadre social des populations et de favoriser le développement et l'animation des territoires. L'objectif de Masen est de promouvoir l'accès aux ressources et aux services indispensables, de renforcer les liens communautaires et de dynamiser les économies locales en mettant l'accent sur ces priorités.</p>", choice), unsafe_allow_html=True)
 
-     #df['Axe stratégique'] = df['Axe stratégique'].apply(lambda x: translate_html(x, choice))
-     #axes_strategiques_traduits = [translate_html(axe, choice) for axe in df['Axe stratégique']]
+    # Calculating and displaying the pie chart
      axes_projet_counts = df.groupby('Axe stratégique').size().reset_index(name='Nombre de projets/actions')
      axes_projet_counts['Axe stratégique'] = axes_projet_counts['Axe stratégique'].apply(lambda x: translate_html(x, choice))
-     fig_axes = px.pie(
-    axes_projet_counts,
-    values='Nombre de projets/actions',
-    names='Axe stratégique',
-    title=translate_html("<b style='color: #004378'>Volume de réalisation par axes stratégiques</b>", choice),
-    color='Axe stratégique',
-    color_discrete_map=Axes_colors,
-    template="plotly_white",
-)
      fig_axes.update_layout(
     title_x=0.3,
     paper_bgcolor='rgba(0,0,0,0)', 
