@@ -152,7 +152,7 @@ secter_colors ={
 }
 def Bilan_DDTM():
      try :     
-     df = pd.read_excel(github_url1)
+       df = pd.read_excel(github_url1)
        print("Excel file successfully read.")
      except Exception as e:
        print("Error reading Excel file:", e)
