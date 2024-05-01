@@ -81,13 +81,13 @@ def translate_html(html_code, choice):
     return translated_html_code
 
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
-st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png",caption="", use_column_width=True) 
+st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png", use_column_width=True) 
 choice = st.sidebar.radio('Select language', langlist)
 github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Projets_DDT.xlsx'
 print("Attempting to read Excel file from:", github_url1)
 
 try:
-    df = pd.read_excel(github_url, sheet_name='wiki')
+    df = pd.read_excel(github_url1, sheet_name='wiki')
     print("Excel file successfully read.")
     # Further processing with the DataFrame
 except Exception as e:
