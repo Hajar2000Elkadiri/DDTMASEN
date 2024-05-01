@@ -52,9 +52,14 @@ def add_bg_from_url():
 add_bg_from_url()
 #translate
 github_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/data1/language.xlsx'
+print("Attempting to read Excel file from:", github_url)
 
-# Read the Excel file directly from the URL
-df = pd.read_excel(github_url, sheet_name='wiki')
+try:
+    df = pd.read_excel(github_url, sheet_name='wiki')
+    print("Excel file successfully read.")
+    # Further processing with the DataFrame
+except Exception as e:
+    print("Error reading Excel file:", e)
 df.dropna(inplace=True)
 lang = df['name'].to_list()
 langlist=tuple(lang)
