@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import pyodbc
 from streamlit_option_menu import option_menu
 import folium
 from folium.plugins import MarkerCluster
@@ -79,8 +78,6 @@ except Exception as e:
     print("Error loading image:", e)
     
 choice = st.sidebar.radio('Select language', langlist)
-excel_file = r'C:\Users\Dell\Desktop\test\Projets_DDT.xlsx'
-df = pd.read_excel(excel_file)
 odd_colors = {
        'ODD 4 : Education de qualité': '#c5192d',
        'ODD 5 : Egalité entre les sexes': 'rgb(255, 58, 33)',
