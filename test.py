@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pyodbc
 from streamlit_option_menu import option_menu
 import folium
 from folium.plugins import MarkerCluster
@@ -17,6 +18,7 @@ from mtranslate import translate
 import locale
 from plotly.subplots import make_subplots
 from bs4 import BeautifulSoup, Tag
+
 st.set_page_config(page_title="DDT", page_icon="🌍", layout="wide")
 locale.setlocale(locale.LC_ALL, '')
 current_date = datetime.datetime.now()
@@ -49,7 +51,15 @@ def add_bg_from_url():
      )
 add_bg_from_url()
 #translate
-df1 = pd.read_excel(os.path.join(r'C:\Users\Dell\Desktop\test\data1\language.xlsx', 'language.xlsx'),sheet_name='wiki')
+github_url = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/data1/language.xlsx'
+print("Attempting to read Excel file from:", github_url)
+
+try : 
+    df1 = pd.read_excel(github_url, sheet_name='wiki')
+    print("Excel file successfully read.")
+    # Further processing with the DataFrame
+except Exception as e:
+    print("Error reading Excel file:", e)
 df1.dropna(inplace=True)
 lang = df1['name'].to_list()
 langlist=tuple(lang)
@@ -71,13 +81,22 @@ def translate_html(html_code, choice):
     return translated_html_code
 
 lang_array = {lang[i]: langcode[i] for i in range(len(langcode))}
-try:   
-    st.sidebar.image("https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Logo%20Masen%20VF.png", caption="", use_column_width=True)  
-    print("Image successfully loaded.")
+path_image="https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Logo%20Masen%20VF.png"
+try:
+    st.sidebar.image(path_image, use_column_width=True)
+    print("image ok")
 except Exception as e:
-    print("Error loading image:", e)
-    
+    st.sidebar.error("Error reading image: " + str(e))
+
 choice = st.sidebar.radio('Select language', langlist)
+
+github_url1 = 'https://github.com/Hajar2000Elkadiri/DDTMASEN/raw/main/Projets_DDT.xlsx'
+print("Attempting to read Excel file from:", github_url1)
+try :     
+     df = pd.read_excel(github_url1)
+     print("Excel file successfully read.")
+except Exception as e:
+    print("Error reading Excel file:", e)
 odd_colors = {
        'ODD 4 : Education de qualité': '#c5192d',
        'ODD 5 : Egalité entre les sexes': 'rgb(255, 58, 33)',
@@ -138,8 +157,7 @@ secter_colors ={
        'Environmental Responsibility': '#709cc4',
 }
 def Bilan_DDTM():
-     try :    
-       github_url1= "https://github.com/Hajar2000Elkadiri/DDTMASEN/blob/main/Projets_DDT.xlsx"
+     try :     
        df = pd.read_excel(github_url1)
        print("Excel file successfully read.")
      except Exception as e:
@@ -158,16 +176,16 @@ def Bilan_DDTM():
      )
      title = f"""<h2 style='text-align: center; background-color:#b7d3e8; padding: 10px; border-radius: 10px; font-size: 30px; font-family: Arial, sans-serif; font-weight: bold;'>
 Bilan global des projets de développement durable des territoires <br><span style='color: orange;'>2010-{year}</span>
-</h2>"""
+</h2></br>"""
      st.markdown(translate_html(title,choice), unsafe_allow_html=True)
-    
+     st.markdown("")
 
     # Further processing with the DataFrame
-     st.markdown("")
-     st.markdown("")    
-     st.markdown(translate_html(f"<p style='font-size: 18px; font-family: Calibri; color: black; font-weight: normal; text-align: justify;'>L'objectif stratégique de Masen est de désenclaver les territoires, d'améliorer le cadre social des populations et de favoriser le développement et l'animation des territoires. L'objectif de Masen est de promouvoir l'accès aux ressources et aux services indispensables, de renforcer les liens communautaires et de dynamiser les économies locales en mettant l'accent sur ces priorités.</p>",choice), unsafe_allow_html=True)
-     #df['Axe stratégique'] = df['Axe stratégique'].apply(lambda x: translate_html(x, choice))
-     #axes_strategiques_traduits = [translate_html(axe, choice) for axe in df['Axe stratégique']]
+
+    # Displaying the markdown
+     st.markdown(translate_html(f"<p style='font-size: 18px; font-family: Calibri; color: black; font-weight: normal; text-align: justify;'>L'objectif stratégique de Masen est de désenclaver les territoires, d'améliorer le cadre social des populations et de favoriser le développement et l'animation des territoires. L'objectif de Masen est de promouvoir l'accès aux ressources et aux services indispensables, de renforcer les liens communautaires et de dynamiser les économies locales en mettant l'accent sur ces priorités.</p>", choice), unsafe_allow_html=True)
+
+    # Calculating and displaying the pie chart
      axes_projet_counts = df.groupby('Axe stratégique').size().reset_index(name='Nombre de projets/actions')
      axes_projet_counts['Axe stratégique'] = axes_projet_counts['Axe stratégique'].apply(lambda x: translate_html(x, choice))
      fig_axes = px.pie(
@@ -178,12 +196,6 @@ Bilan global des projets de développement durable des territoires <br><span sty
     color='Axe stratégique',
     color_discrete_map=Axes_colors,
     template="plotly_white",
-)
-     fig_axes.update_layout(
-    title_x=0.3,
-    paper_bgcolor='rgba(0,0,0,0)', 
-    plot_bgcolor='rgba(0,0,0,0)',
-    legend_font=dict(color='#004378')
 )
      fig_axes.update_layout(
     title_x=0.3,
@@ -257,7 +269,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
     rows=1, 
     cols=3, 
     specs=[[{'type':'pie'}, {'type':'pie'}, {'type':'pie'}]], 
-    subplot_titles=(translate_html("<b style='color: #004378'>Le nombre de projets/actions</b>",choice),translate_html("<b style='color: #004378'>Le nombre de bénéficiaires</b>",choice), translate_html("<b style='color: #004378'>Le budget global (DH)</b>",choice),)
+    subplot_titles=(translate_html("<b style='color: #004378'>Nombre de projets/actions</b>",choice),translate_html("<b style='color: #004378'>Nombre de bénéficiaires</b>",choice), translate_html("<b style='color: #004378'>Budget global (DH)</b>",choice),)
 )
      fig1.add_trace(fig_axes['data'][0], row=1, col=1)
      fig1.add_trace(fig_axe_benef_pie['data'][0], row=1, col=2)
@@ -352,7 +364,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
     rows=1, 
     cols=3, 
     specs=[[{'type':'pie'}, {'type':'pie'}, {'type':'pie'}]], 
-    subplot_titles=(translate_html("<b style='color: #004378'>Le nombre de projets/actions</b>",choice), translate_html("<b style='color: #004378'>Le nombre de bénéficiaires</b>",choice), translate_html("<b style='color: #004378'>Le budget global (DH)</b>",choice))
+    subplot_titles=(translate_html("<b style='color: #004378'>Nombre de projets/actions</b>",choice), translate_html("<b style='color: #004378'>Nombre de bénéficiaires</b>",choice), translate_html("<b style='color: #004378'>budget global (DH)</b>",choice))
 )
      fig.add_trace(fig_secteur['data'][0], row=1, col=1)
      fig.add_trace(fig_secteur_benef_pie['data'][0], row=1, col=2)
@@ -450,7 +462,7 @@ Bilan global des projets de développement durable des territoires <br><span sty
     rows=1, 
     cols=3, 
     specs=[[{'type':'pie'}, {'type':'pie'}, {'type':'pie'}]], 
-    subplot_titles=(translate_html("<b style='color: #004378'>Le nombre de projets/actions</b>",choice), translate_html("<b style='color: #004378'>Le nombre de bénéficiaires</b>",choice), translate_html("<b style='color: #004378'>Le budget global (DH)</b>",choice)),
+    subplot_titles=(translate_html("<b style='color: #004378'>Nombre de projets/actions</b>", choice),translate_html("<b style='color: #004378'>Nombre de bénéficiaires</b>",choice),translate_html( "<b style='color: #004378'>Budget global (DH)</b>",choice)),
 )
      fig_odd.add_trace(fig_odd_counts_pie['data'][0], row=1, col=1)
      fig_odd.add_trace(fig_benef_counts_pie['data'][0], row=1, col=2)
