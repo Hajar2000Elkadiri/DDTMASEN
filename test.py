@@ -28,11 +28,10 @@ if 'messages' in st.session_state:
             st.chat_message(msg["role"], avatar="🤖").write(msg["content"])
 
 # Get user input and generate response
-user_prompt = st.text_input("Votre message", "")
-if st.button("Envoyer"):
-    if user_prompt:
-        st.session_state.messages.append({"role": "user", "content": user_prompt})
-        st.chat_message("user", avatar="🧑‍💻").write(user_prompt)
-        st.session_state.full_message = ""
-        st.chat_message("assistant", avatar="🤖").write_stream(generate_response)
-        st.session_state.messages.append({"role": "assistant", "content": st.session_state.full_message})
+user_prompt = st.chat_input("Comment je peux vous aider ? Appuyez sur Entrée pour envoyer.")
+if user_prompt:
+    st.session_state.messages.append({"role": "user", "content": user_prompt})
+    st.chat_message("user", avatar="🧑‍💻").write(user_prompt)
+    st.session_state.full_message = ""  # Reset full message
+    st.chat_message("assistant", avatar="🤖").write_stream(generate_response())
+    st.session_state.messages.append({"role": "assistant", "content": st.session_state.full_message})
